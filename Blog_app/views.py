@@ -16,9 +16,14 @@ def add_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-          form.save()
-          messages.success(request,"Blog added successfully")
-          return redirect('home')
+            name = form.cleaned_data['name']
+            category= form.cleaned_data['category']
+            desc=form.cleaned_data['desc']
+            img=form.cleaned_data['img']
+            user=request.user
+            Blog.objects.create(name=name,user=user,category=category,desc=desc,img=img)
+            messages.success(request,"Blog added successfully")
+            return redirect('home')
     else:
         form = BlogForm()
 
