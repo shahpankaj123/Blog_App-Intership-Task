@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock%}
+
+{% block content %}
+{% for message in messages  %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{message}}!</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<h2>Login</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<a href={% url 'signup' %}><button type="submit">Signup</button></a>
+
+{% endblock %}

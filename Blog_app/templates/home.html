@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Home page {% endblock%}
+
+{% block content %}
+
+<header>
+    <h1>Blog Review Page</h1>
+    <a href="{% url "add_blog" %}"><button type="button" class="btn btn-success buttonmain">Add Blog</button></a>
+    <a href="{% url "Logout" %}"><button type="button" class="btn btn-success buttonmain" style="float:right;">Logout</button></a>
+</header>
+{% for message in messages  %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{message}}!</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<main>
+    <h2>Latest Reviews</h2>
+{% for p in data %}
+    <div class="review">
+        <p class="review-author">Title :{{p.name}}</p>
+        <p class="review-date"><img src={{p.img.url}} height=100px width=100px></p>
+        <p class="review-date">Blog Desc : {{p.desc}}</p>
+        <p class="review-date">Author : {{p.user}}</p>
+        <p class="review-date">Published_Date:{{p.created}}</p> 
+        <a href="{% url "blog_detail" p.id %}"><button type="button" class="btn btn-info">Review</button></a>
+        <a href="{% url "blog_edit" p.id %}"><button type="button" class="btn btn-primary">Edit</button></a>
+        <a href="{% url "blog_delete" p.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+
+    </div>
+{% endfor %}
+    <!-- Add more reviews as needed -->
+
+</main>
+
+
+{% endblock %}

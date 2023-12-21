@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Blog Detail {% endblock%}
+
+{% block content %}
+<header>
+    <h1>Blog Review Page</h1>
+</header>
+
+<main>
+    <h2>Blog Detail</h2>
+
+    <div class="review">
+        <p class="review-author">Title : {{data.name}}</p>
+        <p class="review-date"><img src={{data.img.url}} height=400px width=350px></p>
+        <div class="review-content">
+            <p><i>Blog desc:{{data.desc}}</i></p>
+        </div>
+        <p class="review-date">Published_Date:{{data.created}}</p>
+        <a href="{% url "home" %}"><button type="button" class="btn btn-info">Back</button></a>
+    </div>
+
+    <!-- Add more reviews as needed -->
+
+</main>
+    
+
+
+{% endblock %}
