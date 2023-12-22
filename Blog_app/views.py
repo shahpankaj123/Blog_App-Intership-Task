@@ -3,11 +3,17 @@ from .models import Blog,Category
 from .forms import BlogForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 
 
 @login_required(login_url='Login')
 def Blog_View(request):
-    blogs=Blog.objects.select_related()
+    if cache.get('blogs'):
+      blogs=cache.get('blogs')
+      print('Redis Db')
+    else:
+        blogs=Blog.objects.select_related()
+        cache.set('blogs',blogs,timeout=10)  
     return render(request,'home.html',{'data':blogs})
 
 
@@ -32,7 +38,12 @@ def add_blog(request):
 
 @login_required(login_url='Login')
 def Blog_detail(request,id):
-    blog=Blog.objects.get(id=id)
+    if cache.get('blog'):
+      blog=cache.get('blog')
+      print('Redis Db')
+    else:
+        blog=Blog.objects.get(id=id)
+        cache.set('blog',blog,timeout=10) 
     return render(request,'Blog_detail.html',{'data':blog})
 
 @login_required(login_url='Login')
